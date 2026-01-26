@@ -19,17 +19,28 @@ use Illuminate\Routing\Middleware\SubstituteBindings;
 use Illuminate\Session\Middleware\StartSession;
 use Illuminate\View\Middleware\ShareErrorsFromSession;
 
+
 class AdminPanelProvider extends PanelProvider
 {
+
+
     public function panel(Panel $panel): Panel
+
     {
+        
         return $panel
+            ->plugin(\Octopy\Filament\Palette\PaletteSwitcherPlugin::make()
+
+            ->applyThemeGlobally(true))
+            ->databaseNotifications()
             ->default()
             ->id('admin')
             ->path('admin')
             ->login()
+            
+            ->globalSearch(false)
             ->colors([
-                'primary' => Color::Amber,
+                'primary' => Color::Red,
             ])
             ->discoverResources(in: app_path('Filament/Resources'), for: 'App\Filament\Resources')
             ->discoverPages(in: app_path('Filament/Pages'), for: 'App\Filament\Pages')
@@ -56,4 +67,6 @@ class AdminPanelProvider extends PanelProvider
                 Authenticate::class,
             ]);
     }
+
+
 }

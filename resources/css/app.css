@@ -1,10 +1,12 @@
 @import 'tailwindcss';
 @import '../../vendor/livewire/flux/dist/flux.css';
+@import './filament.css';
 
 @source '../views';
 @source '../../vendor/laravel/framework/src/Illuminate/Pagination/resources/views/*.blade.php';
 @source '../../vendor/livewire/flux-pro/stubs/**/*.blade.php';
 @source '../../vendor/livewire/flux/stubs/**/*.blade.php';
+@source '../../../../vendor/octopyid/filament-palette/resources';
 
 @custom-variant dark (&:where(.dark, .dark *));
 
@@ -59,6 +61,13 @@ input:focus[data-flux-control],
 textarea:focus[data-flux-control],
 select:focus[data-flux-control] {
     @apply outline-hidden ring-2 ring-accent ring-offset-2 ring-offset-accent-foreground;
+}
+body {
+    background-color: #FFC0CB; /* rosa claro */
+}
+
+.filament-app-layout {
+    background-color: #FFC0CB; /* asegura que todo el layout se pinte */
 }
 
 /* \[:where(&)\]:size-4 {
