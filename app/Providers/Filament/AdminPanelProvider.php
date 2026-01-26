@@ -29,9 +29,11 @@ class AdminPanelProvider extends PanelProvider
     {
         
         return $panel
-            ->plugin(\Octopy\Filament\Palette\PaletteSwitcherPlugin::make()
-
-            ->applyThemeGlobally(true))
+            ->plugin(\Octopy\Filament\Palette\PaletteSwitcherPlugin::make()->hidden(function () {
+            return auth()->user()->email === 'francisco.jara.valdes95@gmail.com';
+        })
+            )            
+            
             ->databaseNotifications()
             ->default()
             ->id('admin')
