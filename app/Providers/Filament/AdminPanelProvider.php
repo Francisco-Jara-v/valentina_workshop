@@ -29,20 +29,26 @@ class AdminPanelProvider extends PanelProvider
     {
         
         return $panel
-            ->plugin(\Octopy\Filament\Palette\PaletteSwitcherPlugin::make()->hidden(function () {
+
+            /*->plugin(\Octopy\Filament\Palette\PaletteSwitcherPlugin::make()->hidden(function () {
             return auth()->user()->email === 'francisco.jara.valdes95@gmail.com';
         })
-            )            
+            ) */           
             
             ->databaseNotifications()
             ->default()
             ->id('admin')
             ->path('admin')
+            ->darkMode(true)
             ->login()
-            
+            ->viteTheme('resources/css/filament/admin/theme.css')
             ->globalSearch(false)
             ->colors([
-                'primary' => Color::Red,
+                'primary' => Color::hex('#ffe4ec'),
+                'secondary' => Color::Rose,
+                'success' => Color::Emerald,
+                'danger' => Color::Red,
+                'warning' => Color::Yellow,
             ])
             ->discoverResources(in: app_path('Filament/Resources'), for: 'App\Filament\Resources')
             ->discoverPages(in: app_path('Filament/Pages'), for: 'App\Filament\Pages')

@@ -1,0 +1,506 @@
+@import '../../../../vendor/filament/filament/resources/css/theme.css';
+
+@source '../../../../app/Filament/**/*';
+@source '../../../../resources/views/filament/**/*';
+
+/* =========================================================
+   🌸 MODO CLARO – CUTE PINK (Pinterest / Airy)
+========================================================= */
+:root {
+    --pink-50:  #fff7fa;
+    --pink-100: #fdeef3;
+    --pink-200: #fad3e1;
+    --pink-300: #f7b6cd;
+    --pink-400: #f08fb6;
+    --pink-500: #ea6fa6;
+    --pink-600: #d95c95;
+
+    --bg-main: #fff9fb;
+    --surface: #ffffff;
+
+    --ink-main: #4b2a3a;
+    --ink-soft: #8a5b72;
+}
+
+/* =========================================================
+   🌙 MODO OSCURO – DARK CUTE PINK
+========================================================= */
+.dark {
+    --pink-50:  #3a1d2c;
+    --pink-100: #4a2336;
+    --pink-200: #6b2f4a;
+    --pink-300: #8f3b66;
+    --pink-400: #c2558f;
+    --pink-500: #ec6fb3;
+    --pink-600: #ff8fcf;
+
+    --bg-main: #1a0f16;
+    --surface: #24121d;
+
+    --ink-main: #f6dbe8;
+    --ink-soft: #e7b7cf;
+}
+
+/* =========================================================
+   🌍 FONDO GENERAL
+========================================================= */
+body {
+    background:
+        radial-gradient(circle at top left, var(--pink-50), transparent 60%),
+        radial-gradient(circle at bottom right, var(--pink-100), transparent 60%),
+        var(--bg-main);
+    color: var(--ink-main);
+}
+
+/* =========================================================
+   ✨ TRANSICIONES GLOBALES – macOS motion
+========================================================= */
+* {
+    transition:
+        background-color .25s cubic-bezier(.4,0,.2,1),
+        box-shadow .25s cubic-bezier(.4,0,.2,1),
+        border-color .25s cubic-bezier(.4,0,.2,1),
+        color .2s ease,
+        transform .25s cubic-bezier(.4,0,.2,1);
+}
+
+/* =========================================================
+   📚 SIDEBAR – macOS pill animation
+========================================================= */
+.fi-sidebar {
+    background-color: var(--pink-100);
+    border-right: 1px solid var(--pink-200);
+}
+
+.dark .fi-sidebar {
+    background-color: var(--surface);
+}
+
+.fi-sidebar-item {
+    position: relative;
+    border-radius: 14px;
+    padding-left: 14px;
+    overflow: hidden;
+}
+
+/* fondo animado */
+.fi-sidebar-item::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(
+        135deg,
+        var(--pink-200),
+        var(--pink-300)
+    );
+    opacity: 0;
+    transform: scale(0.96);
+    transition:
+        opacity .25s ease,
+        transform .25s cubic-bezier(.4,0,.2,1);
+    border-radius: 14px;
+    z-index: 0;
+}
+
+.fi-sidebar-item:hover::before {
+    opacity: .9;
+    transform: scale(1);
+}
+
+.fi-sidebar-item-active::before {
+    opacity: 1;
+    transform: scale(1);
+}
+
+.fi-sidebar-item > * {
+    position: relative;
+    z-index: 1;
+}
+
+.fi-sidebar-item:hover {
+    transform: translateX(3px);
+}
+
+.fi-sidebar-item-active {
+    transform: translateX(4px);
+}
+
+.fi-sidebar-item-label {
+    color: var(--ink-main);
+    font-weight: 500;
+}
+
+.dark .fi-sidebar-item-label {
+    color: var(--ink-soft);
+}
+
+.dark .fi-sidebar-item::before {
+    background: linear-gradient(
+        135deg,
+        var(--pink-300),
+        var(--pink-500)
+    );
+}
+
+/* =========================================================
+   🔝 TOPBAR – macOS glass
+========================================================= */
+.fi-topbar {
+    background-color: rgba(255, 249, 251, 0.72);
+    backdrop-filter: blur(18px) saturate(160%);
+    -webkit-backdrop-filter: blur(18px) saturate(160%);
+    border-bottom: 1px solid var(--pink-200);
+}
+
+.dark .fi-topbar {
+    background-color: rgba(36, 18, 29, 0.72);
+}
+
+/* =========================================================
+   🧊 CARDS – floating mac
+========================================================= */
+.fi-card {
+    background-color: var(--surface);
+    border-radius: 22px;
+    box-shadow:
+        0 10px 28px rgba(234, 111, 166, 0.14),
+        0 4px 10px rgba(234, 111, 166, 0.08);
+}
+
+.fi-card:hover {
+    transform: translateY(-3px) scale(1.01);
+}
+
+.dark .fi-card {
+    box-shadow:
+        0 0 0 1px rgba(236, 111, 179, 0.12),
+        0 12px 30px rgba(236, 111, 179, 0.25);
+}
+
+/* =========================================================
+   📦 SECTIONS
+========================================================= */
+.fi-section-content {
+    background-color: var(--surface);
+    border-radius: 18px;
+    padding: 1.5rem;
+}
+
+/* =========================================================
+   🔘 BOTONES
+========================================================= */
+.fi-btn-primary {
+    background: linear-gradient(
+        135deg,
+        var(--pink-300),
+        var(--pink-500)
+    );
+    border-radius: 9999px;
+    font-weight: 600;
+    box-shadow: 0 6px 16px rgba(234, 111, 166, 0.35);
+}
+
+.fi-btn-primary:hover {
+    transform: translateY(-1px);
+    background: linear-gradient(
+        135deg,
+        var(--pink-400),
+        var(--pink-600)
+    );
+}
+
+.fi-btn {
+    border-radius: 12px;
+    background-color: var(--pink-100);
+}
+
+.fi-btn:hover {
+    background-color: var(--pink-200);
+}
+
+/* =========================================================
+   ✏️ INPUTS
+========================================================= */
+.fi-input,
+.fi-select,
+.fi-textarea {
+    background-color: #fff;
+    border-radius: 14px;
+    color: var(--ink-main);
+}
+
+.fi-input:focus,
+.fi-select:focus,
+.fi-textarea:focus {
+    outline: none;
+    border-color: var(--pink-400);
+    box-shadow: 0 0 0 4px rgba(240, 143, 182, 0.25);
+}
+
+.dark .fi-input,
+.dark .fi-select,
+.dark .fi-textarea {
+    background-color: #1f1119;
+    color: var(--ink-main);
+}
+
+/* =========================================================
+   📊 TABLAS
+========================================================= */
+.fi-ta-main {
+    background-color: var(--surface);
+    border-radius: 14px;
+}
+
+.fi-ta-row:hover {
+    background-color: var(--pink-50);
+}
+
+.dark .fi-ta-row:hover {
+    background-color: #2d1623;
+}
+
+/* =========================================================
+   BADGES – premium, respetando colores Filament
+========================================================= */
+.fi-badge {
+    border-radius: 9999px;
+    font-weight: 600;
+    backdrop-filter: blur(6px);
+    border: 1px solid rgba(255,255,255,0.2);
+}
+
+/* SUCCESS */
+.fi-badge[data-color="success"] {
+    background: linear-gradient(135deg, #22c55e, #16a34a);
+    color: #ecfdf5;
+    box-shadow: 0 0 12px rgba(34,197,94,.45);
+}
+
+/* WARNING */
+.fi-badge[data-color="warning"] {
+    background: linear-gradient(135deg, #f59e0b, #d97706);
+    color: #fffbeb;
+    box-shadow: 0 0 12px rgba(245,158,11,.45);
+}
+
+/* GRAY */
+.fi-badge[data-color="gray"] {
+    background: linear-gradient(135deg, #6b7280, #4b5563);
+    color: #f9fafb;
+    box-shadow: 0 0 10px rgba(107,114,128,.4);
+}
+
+/* INFO */
+.fi-badge[data-color="info"] {
+    background: linear-gradient(135deg, #38bdf8, #0ea5e9);
+    color: #f0f9ff;
+    box-shadow: 0 0 12px rgba(56,189,248,.45);
+}
+
+/* DANGER */
+.fi-badge[data-color="danger"] {
+    background: linear-gradient(135deg, #ef4444, #dc2626);
+    color: #fef2f2;
+    box-shadow: 0 0 12px rgba(239,68,68,.45);
+}
+
+.fi-badge {
+    background-blend-mode: overlay;
+    backdrop-filter: blur(10px) saturate(140%);
+}
+
+
+/* =========================================================
+   🍎 PAGE TRANSITION (macOS style)
+========================================================= */
+.fi-main {
+    animation: page-enter .35s cubic-bezier(.4,0,.2,1);
+}
+
+@keyframes page-enter {
+    from {
+        opacity: 0;
+        transform: translateY(8px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* =========================================================
+   📚 SIDEBAR MICRO-INTERACTIONS
+========================================================= */
+.fi-sidebar-item {
+    transition:
+        background-color .25s ease,
+        transform .25s ease,
+        box-shadow .25s ease;
+}
+
+.fi-sidebar-item:hover {
+    transform: translateX(4px);
+    box-shadow: 0 4px 12px rgba(234, 111, 166, 0.15);
+}
+
+.dark .fi-sidebar-item:hover {
+    box-shadow: 0 4px 14px rgba(236, 111, 179, 0.35);
+}
+
+/* =========================================================
+   🧊 CARDS – FLOAT FEEL
+========================================================= */
+.fi-card {
+    will-change: transform;
+}
+
+.fi-card:hover {
+    transform: translateY(-3px);
+}
+
+/* =========================================================
+   🔘 BUTTON PRESS EFFECT
+========================================================= */
+.fi-btn,
+.fi-btn-primary {
+    transition:
+        transform .15s ease,
+        box-shadow .15s ease;
+}
+
+.fi-btn:active,
+.fi-btn-primary:active {
+    transform: scale(0.96);
+}
+
+/* =========================================================
+   🎯 MAC-STYLE FOCUS RING
+========================================================= */
+:focus-visible {
+    outline: none;
+    box-shadow:
+        0 0 0 3px rgba(234, 111, 166, 0.35),
+        0 0 0 6px rgba(234, 111, 166, 0.15);
+    border-radius: 14px;
+}
+
+.dark :focus-visible {
+    box-shadow:
+        0 0 0 3px rgba(236, 111, 179, 0.45),
+        0 0 0 6px rgba(236, 111, 179, 0.25);
+}
+
+/* =========================================================
+   💎 PREMIUM FINISH – expensive macOS feel
+========================================================= */
+
+/* 🔹 Ajuste global de tipografía (sensación Apple) */
+body {
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    letter-spacing: 0.1px;
+}
+
+/* =========================================================
+   🧊 GLASS MÁS FINO (menos plástico)
+========================================================= */
+.fi-card,
+.fi-section-content,
+.fi-ta-main,
+.cnt {
+    backdrop-filter: blur(20px) saturate(1.05);
+}
+
+/* =========================================================
+   🧾 BORDES PREMIUM (hairline)
+========================================================= */
+.fi-card,
+.fi-section-content,
+.fi-ta-main,
+.cnt,
+.fi-input,
+.fi-select,
+.fi-textarea {
+    border: 1px solid rgba(0, 0, 0, 0.035);
+}
+
+.dark .fi-card,
+.dark .fi-section-content,
+.dark .fi-ta-main,
+.dark .cnt,
+.dark .fi-input,
+.dark .fi-select,
+.dark .fi-textarea {
+    border: 1px solid rgba(255, 255, 255, 0.06);
+}
+
+/* =========================================================
+   🌫️ SOMBRAS CARAS (spread > blur)
+========================================================= */
+.fi-card,
+.fi-section-content,
+.cnt {
+    box-shadow:
+        0 20px 40px rgba(0, 0, 0, 0.06),
+        0 2px 6px rgba(0, 0, 0, 0.04);
+}
+
+.dark .fi-card,
+.dark .fi-section-content,
+.dark .cnt {
+    box-shadow:
+        0 25px 60px rgba(0, 0, 0, 0.45),
+        0 2px 10px rgba(236, 111, 179, 0.15);
+}
+
+/* =========================================================
+   🎛️ BOTONES MÁS SOBRIOS (luxury UI)
+========================================================= */
+.fi-btn-primary {
+    letter-spacing: 0.3px;
+}
+
+.fi-btn-primary:hover {
+    filter: brightness(1.04);
+}
+
+/* =========================================================
+   📚 SIDEBAR MÁS “APLICACIÓN NATIVA”
+========================================================= */
+.fi-sidebar-item {
+    padding: 0.55rem 0.75rem;
+}
+
+.fi-sidebar-item-active {
+    box-shadow:
+        inset 0 0 0 1px rgba(255, 255, 255, 0.35);
+}
+
+.dark .fi-sidebar-item-active {
+    box-shadow:
+        inset 0 0 0 1px rgba(255, 255, 255, 0.12);
+}
+
+/* =========================================================
+   🧠 INPUTS – sensación Notion / macOS
+========================================================= */
+.fi-input,
+.fi-select,
+.fi-textarea {
+    font-size: 0.95rem;
+}
+
+.fi-input::placeholder,
+.fi-textarea::placeholder {
+    color: var(--ink-soft);
+    opacity: 0.7;
+}
+
+/* =========================================================
+   🎞️ MOVIMIENTO PREMIUM (más lento)
+========================================================= */
+* {
+    transition-duration: 0.35s;
+    transition-timing-function: cubic-bezier(.25,.8,.25,1);
+}

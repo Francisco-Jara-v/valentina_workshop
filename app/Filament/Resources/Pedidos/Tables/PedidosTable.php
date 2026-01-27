@@ -2,6 +2,7 @@
 
 namespace App\Filament\Resources\Pedidos\Tables;
 
+use Filament\Actions\Action;
 use Filament\Actions\BulkActionGroup;
 use Filament\Actions\DeleteBulkAction;
 use Filament\Actions\EditAction;
@@ -42,6 +43,12 @@ class PedidosTable
                     ->toggleable(isToggledHiddenByDefault: false),
                 TextColumn::make('estado')
                     ->searchable()
+                    ->badge()
+                    ->color(fn ($state) => match ($state) {
+                        'PENDIENTE' => 'warning',
+                        'ENTREGADO' => 'success',
+                        default => 'gray',
+                    })
                     ->toggleable(isToggledHiddenByDefault: false),
                 TextColumn::make('created_at')
                     ->dateTime()
@@ -57,11 +64,17 @@ class PedidosTable
             ])
             ->recordActions([
                 EditAction::make(),
+                Action::make('Entregar')
+                    ->action(function ($record) {
+                        $record->estado = 'ENTREGADO';
+                        $record->save();
+                    })
+                    ->visible(fn ($record) => $record->estado === 'PENDIENTE'),
             ])
-            ->toolbarActions([
+            /*->toolbarActions([
                 BulkActionGroup::make([
                     DeleteBulkAction::make(),
                 ]),
-            ]);
+            ])*/;
     }
 }

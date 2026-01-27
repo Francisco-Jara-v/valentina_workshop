@@ -20,7 +20,9 @@ class InsumoResource extends Resource
     protected static ?string $model = Insumo::class;
     
 
-    protected static string|BackedEnum|null $navigationIcon = Heroicon::OutlinedRectangleStack;
+    protected static string|BackedEnum|null $navigationIcon = Heroicon::OutlinedShoppingBag;
+
+    protected static ?string $navigationLabel = 'Insumos';
 
     protected static ?string $recordTitleAttribute = 'Insumo';
 

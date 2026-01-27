@@ -166,7 +166,8 @@ class PedidoForm
                             ->dehydrated(),
 
                         TextInput::make('estado')
-                            ->default('pendiente')
+                            ->default('PENDIENTE')
+                            ->disabled()
                             ->required(),
                     ])
                     ->columns(2)
