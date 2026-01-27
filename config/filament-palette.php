@@ -3,7 +3,7 @@
 use Filament\Support\Colors\Color;
 
 return [
-    'default' => env('FILAMENT_PALETTE_DEFAULT', 'slate'),
+    'default' => env('FILAMENT_PALETTE_DEFAULT', 'valentina'),
 
     'palette' => [
         'slate'   => [
@@ -69,5 +69,12 @@ return [
             'success' => Color::Lime,
             'info'    => Color::Sky,
         ],
+        'valentina' => [
+            'primary' => Color::hex('#FCF8F8'),
+            'warning' => Color::hex('#FBEFEF'),
+            'danger'  => Color::hex('#F5AFAF'),
+            'success' => Color::hex('#F9DFDF'),
+            'info'    => Color::hex('#F9DFDF'),
+        ]
     ],
 ];
