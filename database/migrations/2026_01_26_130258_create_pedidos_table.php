@@ -17,7 +17,7 @@ return new class extends Migration
             $table->date('fecha_pedido');
             $table->text('descripcion')->nullable();
             $table->decimal('total', 10, 2)->default(0);
-            $table->string('estado')->default('pendiente');
+            $table->string('estado')->default('PENDIENTE');
             $table->timestamps();
         });
     }

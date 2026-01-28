@@ -31,15 +31,24 @@ class PedidosTable
                     ->label('Valor de Venta')
                     ->numeric()
                     ->sortable()
+                    ->money('CLP')
+                    ->badge()
+                    ->color('warning')
                     ->toggleable(isToggledHiddenByDefault: false),
                 TextColumn::make('total')
                     ->label('Costo Total')
                     ->numeric()
                     ->sortable()
+                    ->money('CLP')
+                    ->badge()
+                    ->color('danger')
                     ->toggleable(isToggledHiddenByDefault: false),
                 TextColumn::make('ganancia')
                     ->numeric()
                     ->sortable()
+                    ->money('CLP')
+                    ->badge()
+                    ->color('success')
                     ->toggleable(isToggledHiddenByDefault: false),
                 TextColumn::make('estado')
                     ->searchable()
@@ -64,7 +73,8 @@ class PedidosTable
             ])
             ->recordActions([
                 EditAction::make(),
-                Action::make('Entregar')
+                Action::make('Marcar Como Entregado')
+                    ->color('success')
                     ->action(function ($record) {
                         $record->estado = 'ENTREGADO';
                         $record->save();

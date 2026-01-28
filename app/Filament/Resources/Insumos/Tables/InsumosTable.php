@@ -24,7 +24,9 @@ class InsumosTable
                     ->sortable(),
                 TextColumn::make('precio_unitario')
                     ->numeric()
-                    ->sortable(),
+                    ->sortable()
+                    ->money('CLP')
+                    ->badge(),
                 TextColumn::make('created_at')
                     ->dateTime()
                     ->sortable()
