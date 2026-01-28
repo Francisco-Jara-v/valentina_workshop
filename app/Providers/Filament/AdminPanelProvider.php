@@ -32,11 +32,11 @@ class AdminPanelProvider extends PanelProvider
         
         return $panel
 
-            /*->plugin(\Octopy\Filament\Palette\PaletteSwitcherPlugin::make()->hidden(function () {
-            return auth()->user()->email === 'francisco.jara.valdes95@gmail.com';
-        })
-            ) */           
-            
+                      
+            ->brandName('Valentina Workshop')
+            ->brandLogo(asset('images/Logo.png'))
+            ->brandLogoHeight('120px')
+            ->favicon(asset('images/Logo.png'))
             ->databaseNotifications()
             ->default()
             ->id('admin')
