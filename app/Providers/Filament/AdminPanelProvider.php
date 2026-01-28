@@ -79,7 +79,9 @@ class AdminPanelProvider extends PanelProvider
             ])
             ->authMiddleware([
                 Authenticate::class,
-            ]);
+
+            ])
+            ->emailVerification(false);
     }
 
 
