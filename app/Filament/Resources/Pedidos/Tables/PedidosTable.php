@@ -62,6 +62,7 @@ class PedidosTable
                     ->toggleable(isToggledHiddenByDefault: false),
                 TextColumn::make('monto_pagado')
                     ->label('Monto Pagado')
+                    ->badge()
                     ->money('CLP', true)
                     ->sortable(),
     
