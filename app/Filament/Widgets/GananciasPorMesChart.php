@@ -5,6 +5,8 @@ namespace App\Filament\Widgets;
 use App\Models\Insumo;
 use App\Models\Pedido;
 use Filament\Widgets\ChartWidget;
+use Illuminate\Support\Carbon;
+use Illuminate\Support\Facades\DB;
 
 class GananciasPorMesChart extends ChartWidget
 {
@@ -18,56 +20,62 @@ class GananciasPorMesChart extends ChartWidget
 
     public ?string $month = null;
 
-    protected function getFilters(): ?array
-    {
-        return collect(range(1, 12))
-            ->mapWithKeys(fn (int $month) => [
-                (string)$month => date('F', mktime(0, 0, 0, $month, 10)),
-            ])
-            ->toArray();
+
+protected function getData(): array
+{
+    $months = collect(range(1, now()->month))
+        ->map(fn ($month) => now()->startOfYear()->addMonths($month - 1));
+        //->reverse()
+        //->values();
+
+    $labels = [];
+    $invertidoPedido = [];
+    $ganancias = [];
+    $totalInvertido = [];
+
+    foreach ($months as $date) {
+        $labels[] = $date->format('Y-m');
+
+        $pedidoTotal = \App\Models\Pedido::whereDate('created_at', '<=', $date->endOfMonth())
+            ->sum('total');
+
+        $gananciaTotal = \App\Models\Pedido::whereDate('created_at', '<=', $date->endOfMonth())
+            ->sum('ganancia');
+
+        $stockTotal = \App\Models\Insumo::sum(DB::raw('precio_unitario * cantidad'));
+
+        $invertidoPedido[] = $pedidoTotal;
+        $ganancias[] = $gananciaTotal;
+        $totalInvertido[] = $pedidoTotal + $stockTotal;
     }
 
-    protected function getData(): array
-    {
-        $month = $this->filter ?? now()->month;
-
-        $data = Pedido::query()
-            ->whereMonth('fecha_pedido', $month)
-            ->selectRaw('SUM(ganancia) as total_ganancia, DAY(fecha_pedido) as dia')
-            ->groupBy('dia')
-            ->orderBy('dia')
-            ->pluck('total_ganancia', 'dia');
-
-        $invertido = Insumo::query()
-            ->whereMonth('created_at', $month)
-            ->selectRaw('SUM(precio_unitario)*SUM(cantidad) as total_invertido, DAY(created_at) as dia')
-            ->groupBy('dia')
-            ->orderBy('dia')
-            ->pluck('total_invertido', 'dia');
-
-        return [
-            'datasets' => [
-                [
-                    'label' => 'Inversión',
-                    'data' => $invertido->values(),
-                    'borderColor' => '#fbbf24',
-                    'backgroundColor' => 'rgba(251, 191, 36, 0.25)',
-                    'fill' => true,
-                    'tension' => 0.4,
-                ],
-                [
-                    'label' => 'Ganancia',
-                    'data' => $data->values(),
-                    'borderColor' => '#ea6fa6',
-                    'backgroundColor' => 'rgba(234, 111, 166, 0.25)',
-                    'fill' => true,
-                    'tension' => 0.4,
-                ],
+    return [
+        'labels' => $labels,
+        'datasets' => [
+            [
+                'label' => 'Total Invertido',
+                'data' => $totalInvertido,
+                'borderColor' => '#F59E0B',
+                'backgroundColor' => 'rgba(245,158,11,0.2)',
+                'tension' => 0.3,
             ],
-
-            'labels' => $data->keys(),
-        ];
-    }
+            [
+                'label' => 'Ganancia Total',
+                'data' => $ganancias,
+                'borderColor' => '#10B981',
+                'backgroundColor' => 'rgba(16,185,129,0.2)',
+                'tension' => 0.3,
+            ],
+            [
+                'label' => 'Total Invertido por Pedido',
+                'data' => $invertidoPedido,
+                'borderColor' => '#EF4444',
+                'backgroundColor' => 'rgba(239,68,68,0.2)',
+                'tension' => 0.3,
+            ],
+        ],
+    ];
+}
 
 
 

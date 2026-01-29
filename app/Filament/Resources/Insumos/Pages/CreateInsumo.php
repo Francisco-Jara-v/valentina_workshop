@@ -8,4 +8,10 @@ use Filament\Resources\Pages\CreateRecord;
 class CreateInsumo extends CreateRecord
 {
     protected static string $resource = InsumoResource::class;
+
+    //FUNCION PARA REDIRECCIONAR AL INDEX DEL MODULO
+    protected function getRedirectUrl(): string
+    {
+        return $this->getResource()::getUrl('index');
+    }
 }

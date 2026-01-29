@@ -15,6 +15,8 @@ class Pedido extends Model
         'valor_venta',
         'ganancia',
         'estado',
+        'monto_pagado',
+        'estado_pago',
     ];
 
     protected static function booted()

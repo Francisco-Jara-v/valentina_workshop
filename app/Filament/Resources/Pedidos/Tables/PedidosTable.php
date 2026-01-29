@@ -8,6 +8,7 @@ use Filament\Actions\DeleteBulkAction;
 use Filament\Actions\EditAction;
 use Filament\Tables\Columns\TextColumn;
 use Filament\Tables\Table;
+use Filament\Tables\Columns\BadgeColumn;
 
 class PedidosTable
 {
@@ -59,6 +60,23 @@ class PedidosTable
                         default => 'gray',
                     })
                     ->toggleable(isToggledHiddenByDefault: false),
+                TextColumn::make('monto_pagado')
+                    ->label('Monto Pagado')
+                    ->money('CLP', true)
+                    ->sortable(),
+    
+                BadgeColumn::make('estado_pago')
+                    ->label('Estado de Pago')
+                    ->colors([
+                        'danger' => 'pendiente',
+                        'warning' => 'abonado',
+                        'success' => 'pagado',
+                    ])
+                    ->icons([
+                        'heroicon-o-clock' => 'pendiente',
+                        'heroicon-o-banknotes' => 'abonado',
+                        'heroicon-o-check-circle' => 'pagado',
+                    ]),
                 TextColumn::make('created_at')
                     ->dateTime()
                     ->sortable()
@@ -80,6 +98,18 @@ class PedidosTable
                         $record->save();
                     })
                     ->visible(fn ($record) => $record->estado === 'PENDIENTE'),
+                Action::make('pagar')
+                    ->label('Pagar')
+                    ->icon('heroicon-o-currency-dollar')
+                    ->color('success')
+                    ->requiresConfirmation()
+                    ->action(function ($record) {
+                        $record->update([
+                            'estado_pago'  => 'PAGADO',
+                            'monto_pagado' => $record->valor_venta,
+                        ]);
+                    })
+                    ->visible(fn ($record) => $record->estado_pago !== 'PAGADO'),
             ])
             /*->toolbarActions([
                 BulkActionGroup::make([
