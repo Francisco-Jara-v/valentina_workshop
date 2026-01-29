@@ -180,7 +180,7 @@ class PedidoForm
         Select::make('estado_pago')
             ->label('Estado de pago')
             ->options([
-                'PENDIENTE' => 'Pendiente',
+                'PAGO PENDIENTE' => 'Pago Pendiente',
                 'ABONADO'   => 'Abonado',
                 'PAGADO'    => 'Pagado',
             ])
@@ -191,7 +191,7 @@ class PedidoForm
                     $set('monto_pagado', $get('valor_venta'));
                 }
 
-                if ($state === 'PENDIENTE') {
+                if ($state === 'PAGO PENDIENTE') {
                     $set('monto_pagado', null);
                 }
             }),

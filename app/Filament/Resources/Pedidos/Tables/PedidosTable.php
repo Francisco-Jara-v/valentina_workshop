@@ -68,14 +68,14 @@ class PedidosTable
                 BadgeColumn::make('estado_pago')
                     ->label('Estado de Pago')
                     ->colors([
-                        'danger' => 'pendiente',
-                        'warning' => 'abonado',
-                        'success' => 'pagado',
+                        'danger' => 'PAGO PENDIENTE',
+                        'warning' => 'ABONADO',
+                        'success' => 'PAGADO',
                     ])
                     ->icons([
-                        'heroicon-o-clock' => 'pendiente',
-                        'heroicon-o-banknotes' => 'abonado',
-                        'heroicon-o-check-circle' => 'pagado',
+                        'heroicon-o-clock' => 'PAGO PENDIENTE',
+                        'heroicon-o-banknotes' => 'ABONADO',
+                        'heroicon-o-check-circle' => 'PAGADO',
                     ]),
                 TextColumn::make('created_at')
                     ->dateTime()
