@@ -35,7 +35,7 @@ class AdminPanelProvider extends PanelProvider
                       
             ->brandName('Valentina Workshop')
             ->brandLogo(asset('images/Logo.png'))
-            ->brandLogoHeight('120px')
+            ->brandLogoHeight('75px')
             ->favicon(asset('images/Logo.png'))
             ->databaseNotifications()
             ->default()
