@@ -165,58 +165,66 @@ class PedidoForm
                             ->disabled()
                             ->dehydrated(),
 
-                        TextInput::make('estado')
+                        Select::make('estado')
+                            ->options([
+                                'PENDIENTE' => 'Pendiente',
+                                'ENTREGADO' => 'Entregado',
+
+                            ])
                             ->default('PENDIENTE')
-                            ->disabled()
+                            
                             ->required(),
                     ])
                     ->columns(2)
                     ->columnSpanFull(),
+
+
                     Section::make('Pago del pedido')
-    ->description('Estado y control de pagos del pedido')
-    ->columns(2)
-    ->schema([
-
-        Select::make('estado_pago')
-            ->label('Estado de pago')
-            ->options([
-                'PAGO PENDIENTE' => 'Pago Pendiente',
-                'ABONADO'   => 'Abonado',
-                'PAGADO'    => 'Pagado',
-            ])
-            ->required()
-            ->live()
-            ->afterStateUpdated(function ($state, callable $set, $get) {
-                if ($state === 'PAGADO') {
-                    $set('monto_pagado', $get('valor_venta'));
-                }
-
-                if ($state === 'PAGO PENDIENTE') {
-                    $set('monto_pagado', null);
-                }
-            }),
-
-        TextInput::make('monto_pagado')
-            ->label('Monto pagado / abonado')
-            ->numeric()
-            ->prefix('$')
-            ->visible(fn ($get) =>
-                in_array($get('estado_pago'), ['ABONADO', 'PAGADO'])
-            )
-            ->disabled(fn ($get) => 
-                $get('estado_pago') === 'PAGADO')
-
-            ->minValue(1)
-            ->maxValue(fn ($get) =>
-                $get('estado_pago') === 'ABONADO'
-                    ? ($get('valor_venta') - 1)
-                    : $get('valor_venta')
-            )
-
-            ->required(fn ($get) =>
-                $get('estado_pago') === 'ABONADO'
-            ),
-    ]),
+                        ->description('Estado y control de pagos del pedido')
+                        ->columnSpanFull()
+                        ->schema([
+                    
+                            Select::make('estado_pago')
+                                ->label('Estado de pago')
+                                ->options([
+                                    'PAGO PENDIENTE' => 'Pago Pendiente',
+                                    'ABONADO'   => 'Abonado',
+                                    'PAGADO'    => 'Pagado',
+                                ])
+                                ->required()
+                                ->live()
+                                ->afterStateUpdated(function ($state, callable $set, $get) {
+                                    if ($state === 'PAGADO') {
+                                        $set('monto_pagado', $get('valor_venta'));
+                                    }
+                    
+                                    if ($state === 'PAGO PENDIENTE') {
+                                        $set('monto_pagado', null);
+                                    }
+                                }),
+                    
+                            TextInput::make('monto_pagado')
+                                ->label('Monto pagado / abonado')
+                                ->numeric()
+                                ->prefix('$')
+                                ->visible(fn ($get) =>
+                                    in_array($get('estado_pago'), ['ABONADO', 'PAGADO'])
+                                )
+                                ->disabled(fn ($get) => 
+                                    $get('estado_pago') === 'PAGADO')
+                    
+                                ->minValue(1)
+                                ->maxValue(fn ($get) =>
+                                    $get('estado_pago') === 'ABONADO'
+                                        ? ($get('valor_venta') - 1)
+                                        : $get('valor_venta')
+                                )
+                    
+                                ->required(fn ($get) =>
+                                    $get('estado_pago') === 'ABONADO'
+                                ),
+                        ])
+                        ->columnSpanFull(),
             ]);
     }
 }
