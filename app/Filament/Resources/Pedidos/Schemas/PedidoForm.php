@@ -11,6 +11,7 @@ use Filament\Forms\Components\Textarea;
 use Filament\Schemas\Components\Section;
 use Filament\Schemas\Schema;
 use App\Models\Insumo;
+use Filament\Forms\Components\Hidden;
 
 class PedidoForm
 {
@@ -46,6 +47,7 @@ class PedidoForm
                         Repeater::make('detalles')
                             ->relationship('detalles')
                             ->reactive()
+                            
                             ->afterStateUpdated(function ($state, callable $set, callable $get) {
 
                                 $total = collect($state)->sum(fn ($item) =>
@@ -58,6 +60,8 @@ class PedidoForm
                                 $set('ganancia', $valorVenta - $total);
                             })
                             ->schema([
+                               Hidden::make('cantidad_original')
+                                ->dehydrated(false),
 
                                 Select::make('insumo_id')
                                     ->label('Insumo')
@@ -77,22 +81,36 @@ class PedidoForm
 
                                 TextInput::make('cantidad')
                                     ->numeric()
-                                    ->default(1)
+                                    ->minValue(1)
                                     ->reactive()
                                     ->live()
-                                    ->minValue(1)
-                                    ->maxValue(fn (callable $get) =>
-                                        Insumo::find($get('insumo_id'))?->cantidad ?? 0
-                                    )
-                                    ->hint(fn (callable $get) =>
-                                        'Stock disponible: ' .
-                                        (Insumo::find($get('insumo_id'))?->cantidad ?? 0)
-                                    )
-                                    ->validationMessages([
-                                        'max' => 'No hay stock suficiente para este insumo',
-                                        'min' => 'La cantidad mínima es 1',
-                                        'required' => 'La cantidad es obligatoria',
-                                    ])
+                                
+                                    ->afterStateHydrated(function ($state, callable $set) {
+                                        // Guarda la cantidad original SOLO al editar
+                                        $set('cantidad_original', $state);
+                                    })
+                                
+                                    ->maxValue(function (callable $get) {
+                                        $insumo = Insumo::find($get('insumo_id'));
+                                
+                                        if (! $insumo) {
+                                            return 0;
+                                        }
+                                
+                                        return $insumo->cantidad + ($get('cantidad_original') ?? 0);
+                                    })
+                                
+                                    ->hint(function (callable $get) {
+                                        $insumo = Insumo::find($get('insumo_id'));
+                                
+                                        if (! $insumo) {
+                                            return null;
+                                        }
+                                
+                                        return 'Stock disponible: ' .
+                                            ($insumo->cantidad + ($get('cantidad_original') ?? 0));
+                                    })
+                                
                                     ->afterStateUpdated(fn ($state, $set, $get) =>
                                         $set('subtotal', $state * ($get('precio_unitario') ?? 0))
                                     ),
