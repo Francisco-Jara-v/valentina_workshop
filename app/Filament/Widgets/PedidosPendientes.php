@@ -82,7 +82,7 @@ class PedidosPendientes extends TableWidget
                         'estado' => 'LISTO',
                     ]))
                     ->label('Pedido Listo')
-                    ->visible(fn ($record) => $record->estado !== 'ENTREGADO'),
+                    ->visible(fn ($record) => $record->estado === 'PENDIENTE'),
             ])
             ->toolbarActions([
                 BulkActionGroup::make([

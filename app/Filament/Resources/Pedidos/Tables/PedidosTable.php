@@ -106,7 +106,7 @@ class PedidosTable
                         $record->estado = 'LISTO';
                         $record->save();
                     })
-                    ->visible(fn ($record) => $record->estado !== 'ENTREGADO'),
+                    ->visible(fn ($record) => $record->estado === 'PENDIENTE'),
                 Action::make('pagar')
                     ->label('Pagar')
                     ->icon('heroicon-o-currency-dollar')
