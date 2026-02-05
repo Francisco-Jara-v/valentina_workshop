@@ -51,6 +51,7 @@ class PedidosPendientes extends TableWidget
                     ->color(fn ($state) => match ($state) {
                         'PENDIENTE' => 'warning',
                         'ENTREGADO' => 'success',
+                        'LISTO' => 'success',
                         default => 'gray',
                     }),
 
@@ -72,8 +73,16 @@ class PedidosPendientes extends TableWidget
                     ->action(fn (Pedido $record) => $record->update([
                         'estado' => 'ENTREGADO',
                     ]))
-                    ->label('Marcar como Entregado')
-                    ->visible(fn ($record) => $record->estado === 'PENDIENTE'),
+                    ->label('Entregado')
+                    ->visible(fn ($record) => $record->estado !== 'ENTREGADO'),
+                Action::make('Listo')
+                    ->icon('heroicon-o-check-circle')
+                    ->color('success')
+                    ->action(fn (Pedido $record) => $record->update([
+                        'estado' => 'LISTO',
+                    ]))
+                    ->label('Pedido Listo')
+                    ->visible(fn ($record) => $record->estado !== 'ENTREGADO'),
             ])
             ->toolbarActions([
                 BulkActionGroup::make([

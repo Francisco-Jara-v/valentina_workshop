@@ -186,7 +186,10 @@ class PedidoForm
                         Select::make('estado')
                             ->options([
                                 'PENDIENTE' => 'Pendiente',
+                                'LISTO' => 'Listo',
                                 'ENTREGADO' => 'Entregado',
+
+
 
                             ])
                             ->default('PENDIENTE')

@@ -57,6 +57,7 @@ class PedidosTable
                     ->color(fn ($state) => match ($state) {
                         'PENDIENTE' => 'warning',
                         'ENTREGADO' => 'success',
+                        'LISTO' => 'success',
                         default => 'gray',
                     })
                     ->toggleable(isToggledHiddenByDefault: false),
@@ -92,13 +93,20 @@ class PedidosTable
             ])
             ->recordActions([
                 EditAction::make(),
-                Action::make('Marcar Como Entregado')
+                Action::make('Entregado')
                     ->color('success')
                     ->action(function ($record) {
                         $record->estado = 'ENTREGADO';
                         $record->save();
                     })
-                    ->visible(fn ($record) => $record->estado === 'PENDIENTE'),
+                    ->visible(fn ($record) => $record->estado !== 'ENTREGADO'),
+                Action::make('Listo')
+                    ->color('success')
+                    ->action(function ($record) {
+                        $record->estado = 'LISTO';
+                        $record->save();
+                    })
+                    ->visible(fn ($record) => $record->estado !== 'ENTREGADO'),
                 Action::make('pagar')
                     ->label('Pagar')
                     ->icon('heroicon-o-currency-dollar')
