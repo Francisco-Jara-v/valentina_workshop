@@ -84,7 +84,7 @@ class PedidoForm
                                     ->minValue(1)
                                     ->reactive()
                                     ->live()
-                                
+                                    ->required()
                                     ->afterStateHydrated(function ($state, callable $set) {
                                         // Guarda la cantidad original SOLO al editar
                                         $set('cantidad_original', $state);
