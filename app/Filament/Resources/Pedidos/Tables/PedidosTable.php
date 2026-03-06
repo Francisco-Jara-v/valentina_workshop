@@ -53,6 +53,7 @@ class PedidosTable
                     ->toggleable(isToggledHiddenByDefault: false),
                 TextColumn::make('estado')
                     ->searchable()
+                    ->sortable()
                     ->badge()
                     ->color(fn ($state) => match ($state) {
                         'PENDIENTE' => 'warning',
@@ -69,6 +70,7 @@ class PedidosTable
     
                 BadgeColumn::make('estado_pago')
                     ->label('Estado de Pago')
+                    ->sortable()
                     ->colors([
                         'danger' => 'PAGO PENDIENTE',
                         'warning' => 'ABONADO',

@@ -47,6 +47,7 @@ class PedidosPendientes extends TableWidget
                     ->sortable(),
                 TextColumn::make('estado')
                     ->searchable()
+                    ->sortable()
                     ->badge()
                     ->color(fn ($state) => match ($state) {
                         'PENDIENTE' => 'warning',
