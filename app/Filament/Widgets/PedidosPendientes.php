@@ -31,6 +31,16 @@ class PedidosPendientes extends TableWidget
                 TextColumn::make('cliente_nombre')
                     ->label('Cliente')
                     ->searchable(),
+                TextColumn::make('estado')
+                    ->searchable()
+                    ->sortable()
+                    ->badge()
+                    ->color(fn ($state) => match ($state) {
+                        'PENDIENTE' => 'warning',
+                        'ENTREGADO' => 'success',
+                        'LISTO' => 'success',
+                        default => 'gray',
+                    }),
                 TextColumn::make('descripcion')
                     ->label('Descripción')
                     ->limit(50),
@@ -45,16 +55,7 @@ class PedidosPendientes extends TableWidget
                 TextColumn::make('ganancia')
                     ->numeric()
                     ->sortable(),
-                TextColumn::make('estado')
-                    ->searchable()
-                    ->sortable()
-                    ->badge()
-                    ->color(fn ($state) => match ($state) {
-                        'PENDIENTE' => 'warning',
-                        'ENTREGADO' => 'success',
-                        'LISTO' => 'success',
-                        default => 'gray',
-                    }),
+                
 
                     
             ])
@@ -64,6 +65,8 @@ class PedidosPendientes extends TableWidget
             ->filters([
                 //
             ])
+            ->defaultPaginationPageOption(50)
+            ->paginationPageOptions([25, 50, 100])
             ->headerActions([
                 //
             ])
@@ -85,10 +88,12 @@ class PedidosPendientes extends TableWidget
                     ->label('Pedido Listo')
                     ->visible(fn ($record) => $record->estado === 'PENDIENTE'),
             ])
+
             ->toolbarActions([
                 BulkActionGroup::make([
                     //
                 ]),
+
             ]);
     }
 }

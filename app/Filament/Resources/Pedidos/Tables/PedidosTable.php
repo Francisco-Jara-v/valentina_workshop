@@ -21,36 +21,6 @@ class PedidosTable
                     ->date()
                     ->sortable()
                     ->toggleable(isToggledHiddenByDefault: false),
-                TextColumn::make('cliente_nombre')
-                    ->label('Cliente')
-                    ->searchable(),
-                TextColumn::make('descripcion')
-                    ->label('Descripción')
-                    ->limit(50)
-                    ->toggleable(isToggledHiddenByDefault: false),
-                TextColumn::make('valor_venta')
-                    ->label('Valor de Venta')
-                    ->numeric()
-                    ->sortable()
-                    ->money('CLP')
-                    ->badge()
-                    ->color('warning')
-                    ->toggleable(isToggledHiddenByDefault: false),
-                TextColumn::make('total')
-                    ->label('Costo Total')
-                    ->numeric()
-                    ->sortable()
-                    ->money('CLP')
-                    ->badge()
-                    ->color('danger')
-                    ->toggleable(isToggledHiddenByDefault: false),
-                TextColumn::make('ganancia')
-                    ->numeric()
-                    ->sortable()
-                    ->money('CLP')
-                    ->badge()
-                    ->color('success')
-                    ->toggleable(isToggledHiddenByDefault: false),
                 TextColumn::make('estado')
                     ->searchable()
                     ->sortable()
@@ -62,12 +32,14 @@ class PedidosTable
                         default => 'gray',
                     })
                     ->toggleable(isToggledHiddenByDefault: false),
-                TextColumn::make('monto_pagado')
-                    ->label('Monto Pagado')
-                    ->badge()
-                    ->money('CLP', true)
-                    ->sortable(),
-    
+                TextColumn::make('cliente_nombre')
+                    ->label('Cliente')
+                    ->searchable(),
+                TextColumn::make('descripcion')
+                    ->label('Descripción')
+                    ->limit(50)
+                    ->toggleable(isToggledHiddenByDefault: false),
+                
                 BadgeColumn::make('estado_pago')
                     ->label('Estado de Pago')
                     ->sortable()
@@ -80,7 +52,38 @@ class PedidosTable
                         'heroicon-o-clock' => 'PAGO PENDIENTE',
                         'heroicon-o-banknotes' => 'ABONADO',
                         'heroicon-o-check-circle' => 'PAGADO',
-                    ]),
+                    ])
+                    ->toggleable(isToggledHiddenByDefault: false),
+                TextColumn::make('valor_venta')
+                    ->label('Valor de Venta')
+                    ->numeric()
+                    ->sortable()
+                    ->money('CLP')
+                    ->badge()
+                    ->color('warning')
+                    ->toggleable(isToggledHiddenByDefault: true),
+                TextColumn::make('total')
+                    ->label('Costo Total')
+                    ->numeric()
+                    ->sortable()
+                    ->money('CLP')
+                    ->badge()
+                    ->color('danger')
+                    ->toggleable(isToggledHiddenByDefault: true),
+                TextColumn::make('ganancia')
+                    ->numeric()
+                    ->sortable()
+                    ->money('CLP')
+                    ->badge()
+                    ->color('success')
+                    ->toggleable(isToggledHiddenByDefault: true),
+                
+                TextColumn::make('monto_pagado')
+                    ->label('Monto Pagado')
+                    ->badge()
+                    ->money('CLP', true)
+                    ->sortable()
+                    ->toggleable(isToggledHiddenByDefault: true),
                 TextColumn::make('created_at')
                     ->dateTime()
                     ->sortable()
@@ -122,6 +125,8 @@ class PedidosTable
                     })
                     ->visible(fn ($record) => $record->estado_pago !== 'PAGADO'),
             ])
+            ->defaultPaginationPageOption(50)
+            ->paginationPageOptions([25, 50, 100]);
             /*->toolbarActions([
                 BulkActionGroup::make([
                     DeleteBulkAction::make(),
