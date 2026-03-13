@@ -183,6 +183,9 @@ class PedidoForm
                             ->disabled()
                             ->dehydrated(),
 
+                        DatePicker::make('fecha_entrega')
+                            ->required()
+                            ->default(now()),
                         Select::make('estado')
                             ->options([
                                 'PENDIENTE' => 'Pendiente',

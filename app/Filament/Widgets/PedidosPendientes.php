@@ -24,9 +24,9 @@ class PedidosPendientes extends TableWidget
                 ->orderBy('fecha_pedido','asc')
             )
             ->columns([
-                TextColumn::make('fecha_pedido')
+                TextColumn::make('fecha_entrega')
                     ->date()
-                    ->label('Fecha del Pedido')
+                    ->label('Fecha de Entrega')
                     ->sortable(),
                 TextColumn::make('cliente_nombre')
                     ->label('Cliente')
@@ -74,9 +74,12 @@ class PedidosPendientes extends TableWidget
                 Action::make('Entregar')
                     ->icon('heroicon-o-check-circle')
                     ->color('success')
-                    ->action(fn (Pedido $record) => $record->update([
-                        'estado' => 'ENTREGADO',
-                    ]))
+                    ->action(function ($record) {
+                        $ahora = now('America/Santiago');
+                        $record->update([
+                            'estado' => 'ENTREGADO',
+                            'fecha_entrega' => $ahora,]);
+                    })
                     ->label('Entregado')
                     ->visible(fn ($record) => $record->estado !== 'ENTREGADO'),
                 Action::make('Listo')

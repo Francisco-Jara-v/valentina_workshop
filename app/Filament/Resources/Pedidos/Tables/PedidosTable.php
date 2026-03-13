@@ -17,10 +17,14 @@ class PedidosTable
         return $table
             ->columns([
                 
-                TextColumn::make('fecha_pedido')
+                TextColumn::make('fecha_entrega')
                     ->date()
                     ->sortable()
                     ->toggleable(isToggledHiddenByDefault: false),
+                TextColumn::make('fecha_pedido')
+                    ->date()
+                    ->sortable()
+                    ->toggleable(isToggledHiddenByDefault: true),
                 TextColumn::make('estado')
                     ->searchable()
                     ->sortable()
@@ -101,8 +105,10 @@ class PedidosTable
                 Action::make('Entregado')
                     ->color('success')
                     ->action(function ($record) {
-                        $record->estado = 'ENTREGADO';
-                        $record->save();
+                        $ahora = now('America/Santiago');
+                        $record->update([
+                            'estado' => 'ENTREGADO',
+                            'fecha_entrega' => $ahora,]);
                     })
                     ->visible(fn ($record) => $record->estado !== 'ENTREGADO'),
                 Action::make('Listo')

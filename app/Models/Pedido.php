@@ -17,6 +17,7 @@ class Pedido extends Model
         'estado',
         'monto_pagado',
         'estado_pago',
+        'fecha_entrega'
     ];
 
     protected static function booted()
