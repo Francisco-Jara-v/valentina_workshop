@@ -148,7 +148,7 @@ Relaciones clave:
 ## 🚀 Instalación
 
 ```bash id="install1"
-git clone <URL_DEL_REPO>
+git clone (https://github.com/Francisco-Jara-v/valentina_workshop)
 cd valentinaworkshop
 ```
 
@@ -173,16 +173,6 @@ php artisan serve
 
 ---
 
-## 📸 Capturas recomendadas
-
-Para mejorar el repositorio, agregar:
-
-* Dashboard (métricas)
-* Crear pedido
-* Gestión de insumos
-* Sección de notas
-
----
 
 ## 🔐 Acceso
 
