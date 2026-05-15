@@ -71,7 +71,15 @@ class ResumenFinanciero extends StatsOverviewWidget
                         $cantidadVendida
                     );
             });
+        /*
+        |--------------------------------------------------------------------------
+        | HISTÓRICO PEDIDOS
+        |--------------------------------------------------------------------------
+        */
 
+        $historicoPedidos =
+            Pedido::sum('total');
+        
         /*
         |--------------------------------------------------------------------------
         | HISTÓRICO TOTAL
@@ -80,7 +88,8 @@ class ResumenFinanciero extends StatsOverviewWidget
 
         $historicoTotal =
             $totalInsumos +
-            $historicoProductos;
+            $historicoProductos +
+            $historicoPedidos;
 
         /*
         |--------------------------------------------------------------------------
@@ -127,7 +136,7 @@ class ResumenFinanciero extends StatsOverviewWidget
                 'Histórico Invertido',
                 '$ ' . number_format($historicoTotal, 0, ',', '.')
             )
-                ->description('Total histórico fabricado')
+                ->description('Total histórico invertido')
                 ->descriptionIcon('heroicon-o-chart-bar')
                 ->color('danger'),
 
