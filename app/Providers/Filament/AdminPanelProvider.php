@@ -12,7 +12,10 @@ use Filament\Panel;
 use Filament\PanelProvider;
 use Filament\Support\Colors\Color;
 use Filament\Widgets\AccountWidget;
-use Filament\Widgets\FilamentInfoWidget;
+//use Filament\Widgets\PedidosPendientes;
+//use Filament\Widgets\ResumenFinanciero;
+//use Filament\Widgets\PedidosStats;
+//use Filament\Widgets\ProduccionStats;
 use Illuminate\Cookie\Middleware\AddQueuedCookiesToResponse;
 use Illuminate\Cookie\Middleware\EncryptCookies;
 use Illuminate\Foundation\Http\Middleware\VerifyCsrfToken;
@@ -62,7 +65,10 @@ class AdminPanelProvider extends PanelProvider
             
             ->widgets([
                 //AccountWidget::class,
-                
+                //ResumenFinanciero::class,
+                //PedidosStats::class,
+                //ProduccionStats::class,
+                //PedidosPendientes::class,
                 //FilamentInfoWidget::class,
             ])
 

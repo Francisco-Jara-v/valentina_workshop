@@ -81,6 +81,6 @@ protected function getData(): array
 
     protected function getType(): string
     {
-        return 'line';
+        return 'bar';
     }
 }

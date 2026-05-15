@@ -24,4 +24,9 @@ class Insumo extends Model
     {
         return $this->hasMany(DetallePedido::class);
     }
+
+    public function productoInsumo()
+    {
+        return $this->hasMany(ProductoInsumo::class);
+    }
 }

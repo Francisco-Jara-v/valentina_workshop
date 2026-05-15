@@ -12,7 +12,7 @@ use App\Models\Pedido;
 
 class PedidosPendientes extends TableWidget
 {
-    protected static ?int $sort = 3;
+    protected static ?int $sort = 4;
     protected static ?string $heading = 'Pedidos Pendientes de Entrega';
     protected int|string|array $columnSpan =  4;
 
